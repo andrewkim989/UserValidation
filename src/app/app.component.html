@@ -1,0 +1,118 @@
+<div id = "form" *ngIf = "!submitted">
+  <h1>Form Template</h1>
+
+  <form (submit) = "submitForm()" #userData = "ngForm">
+    First name: 
+    <span *ngIf = "firstname.invalid && (firstname.dirty || firstname.touched)" >
+      <span *ngIf = "firstname.errors.required">Please enter your first name</span>
+      <span *ngIf = "firstname.errors.minlength">First name must be at least 2 characters long</span>
+    </span><br/>
+    <input type = "text" name = "firstname" [(ngModel)] = "user.firstname" #firstname = "ngModel"
+      ngModel required minlength = 2/><br/><br/>
+    
+    Last name: 
+    <span *ngIf = "lastname.invalid && (lastname.dirty || lastname.touched)" >
+      <span *ngIf = "lastname.errors.required">Please enter your last name</span>
+      <span *ngIf = "lastname.errors.minlength">Last name must be at least 2 characters long</span>
+    </span><br/>
+    <input type = "text" name = "lastname" [(ngModel)] = "user.lastname" #lastname = "ngModel"
+      ngModel required minlength = 2/><br/><br/>
+
+    Email: 
+    <span *ngIf = "email.invalid && (email.dirty || email.touched)" >
+      <span *ngIf = "email.errors.required">Please enter your email</span>
+      <span *ngIf = "email.errors.email">Not a valid email</span>
+    </span><br/>
+    <input type = "text" name = "email" [(ngModel)] = "user.email" #email = "ngModel"
+      ngModel required email/><br/><br/>
+
+    Password: 
+    <span *ngIf = "password.invalid && (password.dirty || password.touched)" >
+      <span *ngIf = "password.errors.required">Please enter your password</span>
+      <span *ngIf = "password.errors.minlength">Password must be at least 5 characters long</span>
+    </span><br/>
+    <input type = "password" name = "password" [(ngModel)] = "user.password" #password = "ngModel"
+      ngModel required minlength = 5 appPasswordMatch = "confirmpassword" reverse = "true"/><br/><br/>
+
+    Confirm password: 
+    <span *ngIf = "confirmpassword.invalid && (confirmpassword.dirty || confirmpasswordtouched)" >
+      <span *ngIf = "confirmpassword.errors.required">Password confirmation is required</span>
+      <span *ngIf = "confirmpassword.errors.notEqual && !confirmpassword.errors.required">
+        Passwords do not match</span>
+    </span><br/>
+    <input type = "password" name = "confirmpassword" [(ngModel)] = "user.confirmpassword" 
+    #confirmpassword = "ngModel" ngModel required appPasswordMatch = "password"/><br/><br/>
+
+    State: <br/>
+    <select name = "state" [(ngModel)] = "user.state" #state = "ngModel" ngModel required>
+      <option value="" disabled selected>Select state</option>
+      <option value="CA">California</option>
+      <option value="AL">Alabama</option>
+      <option value="AK">Alaska</option>
+      <option value="AZ">Arizona</option>
+      <option value="AR">Arkansas</option>
+      <option value="CO">Colorado</option>
+      <option value="CT">Connecticut</option>
+      <option value="DE">Delaware</option>
+      <option value="DC">District Of Columbia</option>
+      <option value="FL">Florida</option>
+      <option value="GA">Georgia</option>
+      <option value="HI">Hawaii</option>
+      <option value="ID">Idaho</option>
+      <option value="IL">Illinois</option>
+      <option value="IN">Indiana</option>
+      <option value="IA">Iowa</option>
+      <option value="KS">Kansas</option>
+      <option value="KY">Kentucky</option>
+      <option value="LA">Louisiana</option>
+      <option value="ME">Maine</option>
+      <option value="MD">Maryland</option>
+      <option value="MA">Massachusetts</option>
+      <option value="MI">Michigan</option>
+      <option value="MN">Minnesota</option>
+      <option value="MS">Mississippi</option>
+      <option value="MO">Missouri</option>
+      <option value="MT">Montana</option>
+      <option value="NE">Nebraska</option>
+      <option value="NV">Nevada</option>
+      <option value="NH">New Hampshire</option>
+      <option value="NJ">New Jersey</option>
+      <option value="NM">New Mexico</option>
+      <option value="NY">New York</option>
+      <option value="NC">North Carolina</option>
+      <option value="ND">North Dakota</option>
+      <option value="OH">Ohio</option>
+      <option value="OK">Oklahoma</option>
+      <option value="OR">Oregon</option>
+      <option value="PA">Pennsylvania</option>
+      <option value="RI">Rhode Island</option>
+      <option value="SC">South Carolina</option>
+      <option value="SD">South Dakota</option>
+      <option value="TN">Tennessee</option>
+      <option value="TX">Texas</option>
+      <option value="UT">Utah</option>
+      <option value="VT">Vermont</option>
+      <option value="VA">Virginia</option>
+      <option value="WA">Washington</option>
+      <option value="WV">West Virginia</option>
+      <option value="WI">Wisconsin</option>
+      <option value="WY">Wyoming</option>
+    </select>
+    <br/><br/>
+
+    <input type = "submit" value = "Submit" [disabled] = "!userData.form.valid"/>
+  </form>
+</div>
+
+<div id = "results" *ngIf = "submitted">
+  <h1>Form Results</h1>
+
+  <h3>Excellent! Here's what you submitted: </h3>
+  <p>First name: {{user.firstname}}</p>
+  <p>Last name: {{user.lastname}}</p>
+  <p>Email: {{user.email}}</p>
+  <p>Password: {{user.password}}</p>
+  <p>State: {{user.state}}</p>
+  <br/>
+  <button (click) = "goBack()">Okay!</button>
+</div>
